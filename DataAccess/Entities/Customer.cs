@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DataAccess.Entities;
+﻿namespace DataAccess.Entities;
 
 // [Table("SuperUsers")]
 // [Index(nameof(FirstName), nameof(LastName))]

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace DataAccess.Entities
+﻿namespace DataAccess.Entities
 {
     // [PrimaryKey(nameof(Code))]
    // [Index(nameof(Name), IsUnique = false)]
