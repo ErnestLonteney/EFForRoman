@@ -25,5 +25,7 @@
 
        // [Column(TypeName = "money")]
         public decimal? Price { get; set; } // [price]
+
+        public ProductStatus Ranking { get; set; }
     }
 }

@@ -7,8 +7,8 @@ public class StoreDbContext : DbContext
 {
     public StoreDbContext()
     {
-       // Database.EnsureDeleted();  
-        Database.EnsureCreated();   
+        // Database.EnsureDeleted();  
+       // Database.Migrate();   
     }
 
     public DbSet<Product> Products { get; set; } = null!;
