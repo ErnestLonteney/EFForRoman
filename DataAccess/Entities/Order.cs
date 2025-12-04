@@ -6,9 +6,12 @@ public class Order
 
     public DateTime Date { get; set; } // [date]
 
-    public Customer Customer { get; set; } = null!;
+   
+    // Navigation properties
 
-    public Manager? Manager { get; set; }
+    public virtual Customer Customer { get; set; } = null!;
 
-    public List<OrderDetails> Details { get; set; } = [];
+    public virtual Manager? Manager { get; set; }
+
+    public virtual List<OrderDetails> Details { get; set; } = [];
 }

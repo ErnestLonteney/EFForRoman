@@ -8,5 +8,5 @@ public class Department
 
     public string? Description { get; set; }
 
-    public ICollection<Manager> Managers { get; set; } = [];  
+    public virtual ICollection<Manager> Managers { get; set; } = [];  
 }

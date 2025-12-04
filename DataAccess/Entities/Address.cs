@@ -1,12 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DataAccess.Entities;
+﻿namespace DataAccess.Entities;
 
 // [PrimaryKey(nameof(CustomerId))]
 public class Address
 {
-    public Guid CustomerId { get; set; }
+    public Guid PersonId { get; set; }
 
     public string Street { get; set; } = string.Empty;
 
@@ -19,5 +16,5 @@ public class Address
 
  //   [DeleteBehavior(DeleteBehavior.Cascade)]
   //  [ForeignKey(nameof(CustomerId))]
-    public Customer Customer { get; set; } = null!;
+    public virtual Person Person { get; set; } = null!;
 }

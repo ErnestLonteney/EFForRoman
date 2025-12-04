@@ -7,8 +7,9 @@ public class StoreDbContext : DbContext
 {
     public StoreDbContext()
     {
-        // Database.EnsureDeleted();  
-       // Database.Migrate();   
+       // Database.EnsureDeleted();
+       // Database.EnsureCreated();
+        Database.Migrate();   
     }
 
     public DbSet<Product> Products { get; set; } = null!;
@@ -23,33 +24,38 @@ public class StoreDbContext : DbContext
 
     public DbSet<Department> Departments { get; set; } = null!;
 
+    public DbSet<Person> People { get; set; } = null!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
 
+       // modelBuilder.Entity<Customer>().ToTable("SuperUsers");
 
-        modelBuilder.Entity<Product>().Property<decimal>("SellPrice").HasComputedColumnSql("(Price * 1.2)");
-
-        modelBuilder.Entity<Customer>().ToTable("SuperUsers");
 
         //modelBuilder.Entity<Customer>()
         //    .Property(c => c.Id)
-          //  .ValueGeneratedOnAdd();
+        //  .ValueGeneratedOnAdd();
 
         modelBuilder.Entity<Customer>()
             .Property(c => c.FirstName)
             .HasMaxLength(200);
 
-        modelBuilder.Entity<Customer>().Property(c => c.LastName)
+        modelBuilder.Entity<Person>().HasKey(c => c.Id);
+
+        modelBuilder.Entity<Person>().Property(c => c.LastName)
             .HasMaxLength(200);
 
-        modelBuilder.Entity<Customer>().Property(c => c.Email)
+        modelBuilder.Entity<Person>().Property(c => c.Email)
             .HasMaxLength(300);
 
-        modelBuilder.Entity<Customer>().HasIndex(c => new { c.FirstName, c.LastName });
+        modelBuilder.Entity<Person>().HasIndex(c => new { c.FirstName, c.LastName });
 
         modelBuilder.Entity<Order>().Property(o => o.Date)
             .HasDefaultValueSql("GETDATE()");
+
+        modelBuilder.Entity<OrderDetails>()
+            .HasKey(od => new { od.OrderId, od.ProductId });
 
         // Order -> OrderDetails (1 - many) relationship
         modelBuilder.Entity<Order>()
@@ -71,17 +77,19 @@ public class StoreDbContext : DbContext
             .IsRequired(true);
 
         modelBuilder.Entity<Address>()
-            .HasKey(a => a.CustomerId);
+            .HasKey(a => a.PersonId);
 
-        modelBuilder.Entity<Customer>()
+        modelBuilder.Entity<Person>()
              .HasOne(c => c.Address)
-             .WithOne(a => a.Customer)
+             .WithOne(a => a.Person)
              .IsRequired(false)
              .OnDelete(DeleteBehavior.Cascade);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=localhost;Database=MyStore;Trusted_Connection=True;TrustServerCertificate=true");
+        optionsBuilder
+           // .UseLazyLoadingProxies()
+            .UseSqlServer("Server=localhost;Database=MyStore;Trusted_Connection=True;TrustServerCertificate=true");
     }
 }
