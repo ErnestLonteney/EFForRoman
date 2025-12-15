@@ -2,4 +2,5 @@
   <Project Path="Client/Client.csproj" />
   <Project Path="DataAccess/DataAccess.csproj" />
   <Project Path="QueryClient/QueryClient.csproj" Id="4c61c4da-768c-439d-90cd-c3de73ead0a1" />
+  <Project Path="SQLQueries/SQLQueries.csproj" Id="46d64858-50de-4257-981c-6e1976e17fb3" />
 </Solution>

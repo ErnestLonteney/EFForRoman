@@ -206,9 +206,41 @@ namespace QueryClient
             IQueryable<string> prices = context.Products.Select(p => p.Name).Distinct();
             Console.WriteLine(prices.ToQueryString());
 
+            var result11 = context.Managers.Where(o => o.Salary > 10_000).Select(m => new { m.FirstName, m.LastName })
+                    .Union(context.Customers.Where(o => o.Address != null).Select(c => new { c.FirstName, c.LastName }));
 
+            /* SELECT m.FirstName, m.LastName FROM Managers m  (A)
+               WHERE m.Salary > 10000
+               UNION ALL
+               SELECT c.FirstName, c.LastName FROM Customers c  (B)
+               WHERE c.Address IS NOT NULL
+            */
 
+            // Find people with the same first name in both Managers and Customers  
+            var result12 = context.Managers.Select(m => m.FirstName)
+                .Intersect(context.Customers.Select(c => c.FirstName));
 
+            /* SELECT m.FirstName FROM Managers m  (A)
+               INTERSECT
+               SELECT c.FirstName FROM Customers c  (B)
+            */
+
+            // Get all dates for greeting
+            var result1 = context.Managers.Select(m => m.DateOfBirth)
+               .Except(context.Customers.Select(c => c.DateOfBirth));
+
+            /* SELECT m.DateOfBirth FROM Managers m  (A)
+               EXCEPT
+               SELECT c.DateOfBirth FROM Customers c  (B)
+           */
+
+            // The same with LINQ to Objects
+            var array = new[] { 1, 2, 3, 4, 5 } as IEnumerable<int>;
+            var array2 = new[] { 4, 5, 6, 7, 8 } as IEnumerable<int>;
+
+            var result22 = array.Except(array2); //  1, 2, 3    
+            var result33 = array.Intersect(array2); //  4, 5 
+            var result44 = array.Union(array2); // { 1, 2, 3, 4, 5, 6, 7, 8
         }
     }
 }
