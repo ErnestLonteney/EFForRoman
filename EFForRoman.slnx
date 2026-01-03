@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="AsyncQueries/AsyncQueries.csproj" Id="afbca729-e897-42b5-a367-94a87cc5ce32" />
+  <Project Path="ChangeTracking/ChangeTracking.csproj" Id="6575257c-29d2-4674-a46b-54623d55cba3" />
   <Project Path="Client/Client.csproj" />
   <Project Path="DataAccess/DataAccess.csproj" />
   <Project Path="QueryClient/QueryClient.csproj" Id="4c61c4da-768c-439d-90cd-c3de73ead0a1" />
