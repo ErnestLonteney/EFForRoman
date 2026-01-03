@@ -19,6 +19,8 @@ public abstract class Person
 
     public string LastName { get; set; } = string.Empty;
 
+    public DateOnly DateOfBirth { get; set; }   
+
     public string? Email { get; set; }
 
     public string? Phone { get; set; }

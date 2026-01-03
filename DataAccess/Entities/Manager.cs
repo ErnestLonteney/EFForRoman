@@ -2,8 +2,6 @@
 
 public class Manager : Person
 {  
-    public DateOnly DateOfBirth { get; set; }
-
     public double Salary { get; set; }
 
     public DateOnly WorkStart { get; set; }

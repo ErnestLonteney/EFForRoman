@@ -12,6 +12,8 @@ public class StoreDbContext : DbContext
         Database.Migrate();   
     }
 
+    public string Role { get; init; }
+
     public DbSet<Product> Products { get; set; } = null!;
 
     public DbSet<Customer> Customers { get; set; } = null!;
@@ -86,6 +88,11 @@ public class StoreDbContext : DbContext
              .WithOne(a => a.Person)
              .IsRequired(false)
              .OnDelete(DeleteBehavior.Cascade);
+
+
+        modelBuilder.Entity<Person>().HasQueryFilter(p => Role == "Admin" || p.DateOfBirth < new DateOnly(2007, 1, 1));
+
+        modelBuilder.Entity<ExpensiveProduct>().HasNoKey().ToView("V_EXPENSIVE_PRODUCTS");
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

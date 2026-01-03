@@ -16,7 +16,5 @@ public class Customer : Person
 
     public float Discount { get; set; }
 
-    public DateOnly DateOfBirth { get; set; }
-
     public virtual List<Order> MyOrders { get; set; }
 }
